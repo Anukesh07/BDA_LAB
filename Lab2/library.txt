@@ -1,0 +1,26 @@
+cqlsh> create keyspace library  with replication = { 'class' : 'SimpleStrategy','replication_factor':1};
+cqlsh> use library;
+cqlsh:library> create table library_info( id int, counter_val counter, stud_name text, book_name text, book_id int, issue_date timestamp,primary key(id,stud_name,book_name,book_id,issue_date));
+cqlsh:library> update library_info SET counter_val = counter_val +1 where id = 1 and stud_name = 'Alpha' and book_name = 'CNS' and book_id = 1 and issue_date='21-01-2021';
+cqlsh:library> update library_info SET counter_val = counter_val +1 where id = 3 and stud_name = 'Beta' and book_name = 'BDA' and book_id = 10 and issue_date='19-02-2021';
+cqlsh:library> update library_info SET counter_val = counter_val +1 where id = 5 and stud_name = 'Gamma' and book_name = 'ML' and book_id = 11 and issue_date='07-03-2021';
+cqlsh:library> update library_info SET counter_val = counter_val +1 where id = 10 and stud_name = 'Delta' and book_name = 'OOMD' and book_id = 100 and issue_date='21-03-2021';
+cqlsh:library> select * from library_info;
+
+ id | stud_name | book_name        | book_id | issue_date                      | counter_val
+----+-----------+------------------+---------+---------------------------------+-------------
+  3 |    Gamma |             ML |     11 | 06-03-2021 18:30:00.000000+0000 |           1
+  4 |     Delta | OOMD |     100 | 20-03-2021 18:30:00.000000+0000 |           1
+  1 |  Alpha |             CNS |     1 | 20-01-2021 18:30:00.000000+0000 |           1
+  2 |    Beta |              BDA |     10 | 18-02-2021 18:30:00.000000+0000 |           1
+
+(4 rows)
+cqlsh:library> update library_info SET counter_val = counter_val +1 where id = 2 and stud_name = 'Beta' and book_name = 'BDA' and book_id = 10 and issue_date='19-02-2021';
+cqlsh:library> select * from library_info where counter_val = 2 allow filtering;
+
+ id | stud_name | book_name | book_id | issue_date                      | counter_val
+----+-----------+-----------+---------+---------------------------------+-------------
+  3 |    Beta |       BDA |     10 | 18-02-2021 18:30:00.000000+0000 |           2
+
+(1 rows)
+cqlsh:library>
