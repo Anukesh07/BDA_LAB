@@ -1,0 +1,205 @@
+> show databases;
+admin    0.000GB
+config   0.000GB
+local    0.000GB
+student  0.000GB
+> use Studentdb
+switched to db Studentdb
+> var information = [
+... {
+...     "Name" : "Alpha",
+...     "Age" : 20,
+...     "Contact" : 193,
+...     "Email" : "alpha@gmail.com",
+...     "Rollno" : 1
+... },
+... {
+...     "Name" : "Beta",
+...     "Age" : 21,
+...     "Conatct" : 456,
+...     "Email" : "beta@hotmail.com",
+...     "Rollno" : 2
+... },
+... {
+...     "Name" : "Gamma",
+...     "Age" : 22,
+...     "Conatct" : 189,
+...     "Email" : "gamma@rediffmail.com",
+...     "Rollno" : 3
+... },
+... {
+...     "Name" : "Delta",
+...     "Age" : 19,
+...     "Contact" : 137,
+...     "Email" : "delta@outlook.com",
+...     "Rollno" : 4
+... },
+... ];
+> db.student_database.insert(information);
+BulkWriteResult({
+        "writeErrors" : [ ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 4,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+> db.student_database.find().pretty()
+{
+        "_id" : ObjectId("606168e839e2fb5c03819d"),
+        "Name" : "Alpha",
+        "Age" : 20,
+        "Contact" : 193,
+        "Email" : "alpha@gmail.com",
+        "Rollno" : 1
+}
+{
+        "_id" : ObjectId("606168e839e2fb5c03819e"),
+        "Name" : "Beta",
+        "Age" : 21,
+        "Conatct" : 456,
+        "Email" : "beta@hotmail.com",
+        "Rollno" : 2
+}
+{
+        "_id" : ObjectId("606168e839e2fb5c03819f"),
+        "Name" : "Gamma",
+        "Age" : 22,
+        "Conatct" : 189,
+        "Email" : "gamma@rediffmail.com",
+        "Rollno" : 3
+}
+{
+        "_id" : ObjectId("606168e839e2fb5c0381a0"),
+        "Name" : "Delta",
+        "Age" : 19,
+        "Contact" : 137,
+        "Email" : "delta@outlook.com",
+        "Rollno" : 4
+}
+> db.student_database.update({"Rollno":2},{$set:{"Email":"xyz@gmail.com"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.student_database.find({"Rollno":2}).pretty()
+{
+        "_id" : ObjectId("606168e839e2fb5c03819e"),
+        "Name" : "Beta",
+        "Age" : 21,
+        "Conatct" : 456,
+        "Email" : "xyz@gmail.com",
+        "Rollno" : 2
+}
+> db.student_database.update({"Rollno":3},{$set:{"Name":"Piyush"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.student_database.find({"Rollno":3}).pretty()
+{
+        "_id" : ObjectId("606168e839e2fb5c03819f"),
+        "Name" : "Piyush",
+        "Age" : 22,
+        "Conatct" : 189,
+        "Email" : "gamma@rediffmail.com",
+        "Rollno" : 3
+}
+> db.student_database.replaceOne({"Rollno":3},{"Name":"FEM","Age":22,"Contact":"189","Email" : "gamma@rediffmail.com","Rollno" : 3});
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.student_database.find({"Rollno":3}).pretty()
+{
+        "_id" : ObjectId("606168e839e2fb5c03819f"),
+        "Name" : "FEM",
+        "Age" : 22,
+        "Contact" : "189",
+        "Email" : "gamma@rediffmail.com",
+        "Rollno" : 3
+}
+
+> show tables
+student_database
+student_db
+> db.student_db.find().pretty()
+{
+        "_id" : ObjectId("60683866de84a343e01a9b"),
+        "Name" : "Beta",
+        "Age" : 21,
+        "Contact" : NumberLong("456"),
+        "Email" : "xyz@gmail.com",
+        "Rollno" : 2
+}
+{
+        "_id" : ObjectId("60683866de84a343e01a9c"),
+        "Name" : "Alpha",
+        "Age" : 20,
+        "Contact" : 193,
+        "Email" : "alpha@gmail.com",
+        "Rollno" : 1
+}
+{
+        "_id" : ObjectId("60683866de84a343e01a9d"),
+        "Name" : "Name",
+        "Age" : "Age",
+        "Contact" : "Contact",
+        "Email" : "Email",
+        "Rollno" : "Rollno"
+}
+{
+        "_id" : ObjectId("60683866de84a343e01a9e"),
+        "Name" : "FEM",
+        "Age" : 22,
+        "Contact" : 189,
+        "Email" : "gamma@rediffmail.com",
+        "Rollno" : 3
+}
+{
+        "_id" : ObjectId("60683866de84a343e01a9f"),
+        "Name" : "Delta",
+        "Age" : 19,
+        "Contact" : 137,
+        "Email" : "delta@outlook.com",
+        "Rollno" : 4
+}
+> db.student_db.find().pretty()
+{
+        "_id" : ObjectId("60683866de84a343e01a9d"),
+        "Name" : "Name",
+        "Age" : "Age",
+        "Contact" : "Contact",
+        "Email" : "Email",
+        "Rollno" : "Rollno"
+}
+{
+        "_id" : ObjectId("60683866de84a343e01a9b"),
+        "Name" : "Beta",
+        "Age" : 21,
+        "Contact" : NumberLong("456"),
+        "Email" : "xyz@gmail.com",
+        "Rollno" : 2
+}
+{
+        "_id" : ObjectId("60683866de84a343e01a9c"),
+        "Name" : "Alpha",
+        "Age" : 20,
+        "Contact" : 193,
+        "Email" : "alpha@gmail.com",
+        "Rollno" : 1
+}
+{
+        "_id" : ObjectId("60683866de84a343e01a9e"),
+        "Name" : "FEM",
+        "Age" : 22,
+        "Contact" : 189,
+        "Email" : "gamma@rediffmail.com",
+        "Rollno" : 3
+}
+{
+        "_id" : ObjectId("60683866de84a343e01a9f"),
+        "Name" : "Delta",
+        "Age" : 19,
+        "Contact" : 137,
+        "Email" : "delta@outlook.com",
+        "Rollno" : 4
+}
+> db.student_database.drop()
+true
+> show tables
+student_db
+>
